@@ -83,6 +83,15 @@ class TestVariable < Test::Unit::TestCase
     end.call
   end
 
+  def _new_binding(bind)
+    this_should_not_be_in_bind = 2
+    assert_equal([:x], bind.local_variables)
+  end
+  def test_local_variables_from_other_method_binding
+    x = 1
+    _new_binding(binding)
+  end
+
   def test_global_variable_0
     assert_in_out_err(["-e", "$0='t'*1000;print $0"], "", /\At+\z/, [])
   end
